@@ -11,6 +11,7 @@ class TrendRepoAdapter(var callback: AdapterCallback): RecyclerView.Adapter<Tren
 
     var trendingRepoList: List<ReposItem> = ArrayList<ReposItem>()
     var selectedPos: Int = -1
+    var selectedItem: ReposItem? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendReposViewHolder {
         val binding = VhTrendingRepoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -18,7 +19,8 @@ class TrendRepoAdapter(var callback: AdapterCallback): RecyclerView.Adapter<Tren
     }
 
     override fun onBindViewHolder(holder: TrendReposViewHolder, position: Int) {
-        (holder as TrendReposViewHolder).setData(trendingRepoList[position], selectedPos == position, position)
+//        (holder as TrendReposViewHolder).setData(trendingRepoList[position], selectedPos == position, position)
+        (holder as TrendReposViewHolder).setData(trendingRepoList[position], trendingRepoList[position] == selectedItem, selectedItem)
     }
 
     override fun getItemCount(): Int {
@@ -31,7 +33,14 @@ class TrendRepoAdapter(var callback: AdapterCallback): RecyclerView.Adapter<Tren
         callback.onItemPressed(pos)
     }
 
+    override fun onItemPressed(item: ReposItem?) {
+        selectedItem = item
+        notifyDataSetChanged()
+        callback.onItemPressed(item)
+    }
+
     interface AdapterCallback{
         fun onItemPressed(pos: Int)
+        fun onItemPressed(item: ReposItem?)
     }
 }

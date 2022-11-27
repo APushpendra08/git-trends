@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/margin_8"
+    android:elevation="@dimen/padding_12"
     android:minHeight="80dp"
     android:orientation="vertical"
-    android:elevation="10dp"
-    android:outlineSpotShadowColor="@color/black"
-    android:outlineAmbientShadowColor="@color/black"
-    app:cardCornerRadius="4dp"
-    android:padding="8dp">
+    android:padding="@dimen/padding_8"
+    app:cardCornerRadius="@dimen/padding_4">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/padding_8">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,13 +25,15 @@
                 android:id="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/medium_l_text_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" / "
-                android:textColor="@color/black" />
+                android:text="@string/user_project_split"
+                android:textColor="@color/black"
+                android:textSize="@dimen/medium_l_text_size" />
 
             <TextView
                 android:id="@+id/tv_name"
@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:textColor="@color/black"
+                android:textSize="@dimen/medium_l_text_size"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -49,16 +50,16 @@
             android:id="@+id/tv_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/margin_12"
             android:ellipsize="end"
             android:maxLines="3"
             android:textColor="@color/black"
-            android:textSize="10sp" />
+            android:textSize="@dimen/small_text_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="@dimen/margin_16">
 
             <TextView
                 android:id="@+id/tv_language"
@@ -66,17 +67,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="@dimen/medium_text_size"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_stars"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableStart="@drawable/ic_star"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="@dimen/medium_text_size"
+                app:drawableStartCompat="@drawable/ic_star_yellow" />
 
             <TextView
                 android:id="@+id/tv_forks"
@@ -84,10 +86,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:drawableStart="@drawable/ic_fork"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="@dimen/medium_text_size"
+                app:drawableStartCompat="@drawable/ic_fork" />
 
         </LinearLayout>
 

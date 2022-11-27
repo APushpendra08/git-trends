@@ -5,9 +5,33 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pandemonium.gittrends.databinding.VhTrendingRepoBinding
 import com.pandemonium.gittrends.service.models.ReposItem
 
-class TrendReposViewHolder(var binding: VhTrendingRepoBinding, var callback: HolderCallback): RecyclerView.ViewHolder(binding.root) {
+class TrendReposViewHolder(var binding: VhTrendingRepoBinding, var callback: HolderCallback) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    fun setData(data: ReposItem, isSelected: Boolean, pos: Int){
+
+    fun setData(data: ReposItem, isSelected: Boolean, item: ReposItem?) {
+        binding.root.setOnClickListener {
+            callback.onItemPressed(if (item == null || !isSelected) data else null)
+        }
+
+        binding.root.setBackgroundColor(
+            if (isSelected) Color.parseColor("#F1E5AC") else Color.WHITE
+        )
+
+        binding.tvAuthor.text = data.author
+        binding.tvName.text = data.name
+        binding.tvDesc.text = data.description
+
+        binding.tvLanguage.text = data.language
+        data.languageColor?.let {
+            binding.tvLanguage.setTextColor(Color.parseColor(it))
+        }
+
+        binding.tvForks.text = data.forks?.toString()
+        binding.tvStars.text = data.stars?.toString()
+    }
+
+    fun setData(data: ReposItem, isSelected: Boolean, pos: Int) {
 
 
         binding.root.setOnClickListener {
@@ -31,8 +55,9 @@ class TrendReposViewHolder(var binding: VhTrendingRepoBinding, var callback: Hol
         binding.tvStars.text = data.stars?.toString()
     }
 
-    interface HolderCallback{
+    interface HolderCallback {
         fun onItemPressed(pos: Int)
+        fun onItemPressed(item: ReposItem?)
     }
 
 }
