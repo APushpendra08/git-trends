@@ -9,6 +9,10 @@
 
 # Java class files
 *.class
+*.idea
+.idea*
+.idea/*
+*Secret.kt*
 
 # Generated files
 bin/
