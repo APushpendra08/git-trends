@@ -31,6 +31,13 @@ class MainActivity : AppCompatActivity(), TrendRepoAdapter.AdapterCallback {
         viewmodel.getTrendingRepos()
 
         attachObserver()
+
+        if(viewmodel.selectedPosition.value != -1)
+        binding.rvRepos.apply {
+            post {
+                viewmodel.selectedPosition.value?.let { layoutManager?.scrollToPosition(it) }
+            }
+        }
     }
 
     private fun attachObserver() {
