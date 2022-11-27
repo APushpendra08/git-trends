@@ -2,6 +2,7 @@ package com.pandemonium.gittrends.views.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,9 +29,11 @@ class MainActivity : AppCompatActivity(), TrendRepoAdapter.AdapterCallback {
             layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
         }
 
-        viewmodel.getTrendingRepos()
+        if(viewmodel.trendingReposList.value.isNullOrEmpty())
+            viewmodel.getTrendingRepos()
 
         attachObserver()
+
 
         if(viewmodel.selectedPosition.value != -1)
         binding.rvRepos.apply {
@@ -38,6 +41,22 @@ class MainActivity : AppCompatActivity(), TrendRepoAdapter.AdapterCallback {
                 viewmodel.selectedPosition.value?.let { layoutManager?.scrollToPosition(it) }
             }
         }
+
+        binding.svRepos.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+//                viewmodel.filterRepos(text = query)
+                viewmodel.searchText.value = query
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewmodel.searchText.value = newText
+                return false
+            }
+
+        })
+//        binding.svRepos.setQuery("", true)
+
     }
 
     private fun attachObserver() {
@@ -54,9 +73,18 @@ class MainActivity : AppCompatActivity(), TrendRepoAdapter.AdapterCallback {
         viewmodel.trendingReposList.observe(this, object : Observer<List<ReposItem>> {
             override fun onChanged(t: List<ReposItem>?) {
                 (binding.rvRepos.adapter as TrendRepoAdapter).apply {
-                    trendingRepoList = t!!
-                    notifyDataSetChanged()
+                    t?.let {
+                        trendingRepoList = t
+                        notifyDataSetChanged()
+                    }
                 }
+            }
+
+        })
+
+        viewmodel.searchText.observe(this, object : Observer<String> {
+            override fun onChanged(t: String?) {
+                viewmodel.filterRepos(t);
             }
 
         })

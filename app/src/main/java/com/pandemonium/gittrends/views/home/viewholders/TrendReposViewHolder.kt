@@ -23,6 +23,10 @@ class TrendReposViewHolder(var binding: VhTrendingRepoBinding, var callback: Hol
         binding.tvDesc.text = data.description
 
         binding.tvLanguage.text = data.language
+        data.languageColor?.let {
+            binding.tvLanguage.setTextColor(Color.parseColor(it))
+        }
+
         binding.tvForks.text = data.forks?.toString()
         binding.tvStars.text = data.stars?.toString()
     }
